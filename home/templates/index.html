@@ -1,0 +1,257 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Tô Aqui Festas </title>
+
+    {% include 'includes/css.html' %}
+    
+    
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_horizontal-navbar.html -->
+      <div class="horizontal-menu">
+        
+        
+        
+    {% include 'includes/header.html' %}
+      
+      
+      
+      </div>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <div class="main-panel">
+          <div class="content-wrapper pb-0">
+            <div class="page-header flex-wrap">
+              <div class="header-left">
+                
+
+
+                
+              </div>
+              <div class="header-right d-flex flex-wrap mt-md-2 mt-lg-0">
+                
+              </div>
+            </div>
+
+
+
+            <div class="row" >
+            <div class="col-12 grid-margin stretch-card">
+              <div class="card" style="background-color:yellow;">
+                <div class="card-body">
+                  <h4 class="card-title">Aqui você acha os melhores parceiros para sua festa</h4>
+                  
+                  <form class="form-inline">
+                    <label class="sr-only" for="inlineFormInputName2">Estado</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Estado">
+                    <label class="sr-only" for="inlineFormInputName2">Cidade</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Cidade">
+                    <label class="sr-only" for="inlineFormInputName2">Bairro</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Bairro">
+                    <label class="sr-only" for="inlineFormInputName2">Bairro</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Bairro">
+              
+                    
+                    
+                    
+                    
+                  
+                    <button type="submit" class="btn btn-primary mb-2"> Buscar </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+            
+            
+            
+            <!-- image card row starts here -->
+            <div class="row">
+             
+              
+
+              {% for categoria in lista_de_categorias %}
+
+              <div class="col-sm-4 stretch-card grid-margin">
+                <div class="card">
+                  <div class="card-body p-0">
+                    <img class="img-fluid w-100" src="{{ categoria.imagem.thumb.url }}" alt="" />
+                  </div>
+                  <div class="card-body px-3 text-dark">
+                    <div class="d-flex justify-content-between">
+                      <p class="text-muted font-13 mb-0">Anuncio</p>
+                      <i class="mdi mdi-heart-outline"></i>
+                    </div>
+                    <h5 class="font-weight-semibold"> {{ categoria.nome }} </h5>
+                    <div class="d-flex justify-content-between font-weight-semibold">
+                      <p class="mb-0">
+                        <i class="mdi mdi-star star-color pr-1"></i>Avaliação </p>
+                      <p class="mb-0">Rio de janeiro</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {% endfor %}
+
+              
+               
+
+              
+             
+             
+  
+           
+            </div>
+            
+            
+            
+           
+            <div class="row">
+              <div class="col-sm-12 stretch-card grid-margin">
+                <div class="card">
+                  <div class="row">
+                    
+                    
+                    
+                    
+              
+
+
+
+                    Testemunhas aqui
+
+                        
+
+
+
+
+
+
+
+                    
+                   
+                 
+                 
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+         
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="row">
+              
+              
+              <div class="col-sm-6 stretch-card grid-margin">
+                
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Reclamações e elogios</h4>
+                   
+                      <div class="form-group">
+                        <label>Nome completo</label>
+                        <input type="text" class="form-control form-control-lg" placeholder="Username" aria-label="Username">
+                      </div>
+                      <div class="form-group">
+                        <label>E-mail</label>
+                        <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+                      </div>
+                      <div class="form-group">
+                        <label>Telefone/WhatsApp</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                      </div>
+                      <div class="form-group">
+                        <label>Nome do parceiro</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                      </div>
+                      <label>Reclamação</label>
+                      <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
+                      <div class="form-group"></div>
+                      <button type="submit" class="btn btn-primary mr-2"> Reclamar </button>
+                    </div>
+                      
+                    
+                  </div>
+                
+              </div>
+              
+              
+              <div class="col-sm-6 stretch-card grid-margin">
+                
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div class="card-title"> Reclamações & Elogios <small class="d-block text-muted">Não nos responsabilizamos pelos anuncios de nossos parceiros, somos apenas um 
+                        veiculo de informação
+                      </small>
+                      </div>
+                      <div class="d-flex text-muted font-20">
+                        <i class="mdi mdi-whatsapp mouse-pointer"></i>
+                        <i class="mdi mdi-instagram mouse-pointer"></i>
+                      </div>
+                     
+                    </div>
+                    <p>Preencha nosso formulário para fazer uma reclamação ou elogios<br>
+                      iremos averiguar cada reclamação para providenciarmos a exclusão do parceiro. 
+                    </p>
+                    <h3 class="font-weight-bold mb-0">E-mail: <span class="text-success h5">suporte@dominio.com<i class="mdi mdi-email"></i></span>
+                    </h3>
+                    
+                    
+                  </div>
+                </div>
+              
+              
+              </div>
+          
+          
+            </div>
+
+
+        
+
+         {% include 'includes/footer.html' %}
+         
+         <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    
+
+    {% include 'includes/js.html' %}
+    
+  </body>
+</html>
