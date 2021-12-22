@@ -16,3 +16,7 @@ def listaDePostagens(request):
         'lista_de_anuncios': anuncio
     }
     return render(request, 'lista-de-postagens.html', context)
+
+
+def anuncioDetalhes(request):
+    return render(request, 'anuncio-detalhes.html')    
