@@ -23,3 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')), 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+admin.AdminSite.site_header = 'Sistema de gerenciamento Nexxt'
+admin.AdminSite.site_title = 'Sistema de gerenciamento Nexxt'
+admin.AdminSite.index_title = 'Painel Nexxt'
