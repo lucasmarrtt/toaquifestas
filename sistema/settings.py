@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     # My App
     'home',
+    'django_filters',
+    'widget_tweaks',
     
 ]
 
