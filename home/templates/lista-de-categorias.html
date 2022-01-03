@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %} {% load widget_tweaks %} {% load home_extras %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,50 +36,49 @@
 
 
                         </div>
-                        <div class="header-right d-flex flex-wrap mt-md-2 mt-lg-0">
 
-
-
-
-
-
-                        </div>
                     </div>
 
 
 
 
+
+
+
+                    <!-- Form Start -->
                     <div class="row">
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card" style="background-color:yellow;">
                                 <div class="card-body">
                                     <h4 class="card-title">Aqui você acha os melhores parceiros para sua festa</h4>
-
-                                    <form class="form-inline">
-                                        <label class="sr-only" for="inlineFormInputName2">Estado</label>
-                                        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Estado">
-                                        <label class="sr-only" for="inlineFormInputName2">Cidade</label>
-                                        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Cidade">
-                                        <label class="sr-only" for="inlineFormInputName2">Bairro</label>
-                                        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Bairro">
-                                        <label class="sr-only" for="inlineFormInputName2">Bairro</label>
-                                        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Bairro">
-
-
-
-
-
-
-                                        <button type="submit" class="btn btn-primary mb-2"> Buscar </button>
+                                    <form>
+                                        <div class="form-group">
+                                            {% render_field filtered_categorias.form.titulo class="form-control" placeholder="Ex: confeiteiro..." %}
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="inputEmail4">Estado</label> {% render_field filtered_categorias.form.estado class="form-control" placeholder="nome" %}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="inputPassword4">Cidade</label> {% render_field filtered_categorias.form.cidade class="form-control" placeholder="nome" %}
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Procurar</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- Form End -->
 
 
 
-                    {% for categoria in lista_de_categorias %}
+
+
+
+
+
+                    {% for categoria in categoria_page_obj %}
 
                     <div class="card">
                         <div class="card-body p-0">
@@ -91,19 +90,20 @@
 
                                 <i class="mdi mdi-heart-outline"></i>
                             </div>
-                            <h5 class="d-block text-muted">{{ categoria.nome }}</h5>
+                            <h5 class="d-block text-muted">{{ categoria.titulo }}</h5>
                             <small class="d-block text-muted">{{ categoria.endereco }}
-                              </small>
+                        </small>
                             <div class="d-flex justify-content-between font-weight-semibold">
                                 <p class="mb-0">
-                                    <i class="mdi mdi-cellphone star-color pr-1"></i>{{ anuncio.telefone }}</p>
+                                    <i class="mdi mdi-cellphone star-color pr-1"></i>{{ categoria.telefone }}</p>
 
-                                <p class="mb-0">{{ anuncio.estado }} - {{ anuncio.cidade }} </p>
+                                <p class="mb-0">{{ categoria.estado }} - {{ categoria.cidade }} </p>
 
                             </div>
                             <h6>{{ anuncio.estado }}</h6>
+                            <a href="{{ categoria.get_absolute_url }}" class="btn btn-info">Ver</a>
 
-                            <button type="button" class="btn btn-info" style="margin-top: 10px;">  <a href="{% url 'detalhes-do-anuncio' categoria.pk %}">Ver</a></button>
+
 
                         </div>
                     </div>
@@ -111,6 +111,33 @@
                     {% endfor %}
 
 
+
+
+
+                    <nav aria-label="..." style="margin: 20px 0 20px 0;">
+                        <ul class="pagination">
+
+                            {% if categoria_page_obj.has_previous %}
+
+                            <li class="page-item disabled">
+                                <a class="page-link" href="{% my_url categoria_page_obj.previous_page_number 'page' request.GET.urlencode %}" tabindex="-1">Primeira</a>
+                            </li>
+
+                            <li class="page-item"><a class="page-link" href="{% my_url 1 'page' request.GET.urlencode %}">Voltar</a></li>
+                            {% endif %}
+
+                            <li class="page-item active">
+                                <a class="page-link" href="#"> Página - {{ anuncio_page_obj.number }} <span class="sr-only">of {{anuncio_page_obj.paginator.num_page }}</span></a>
+                            </li>
+                            {% if categoria_page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="{% my_url categoria_page_obj.next_page_number 'page' request.GET.urlencode %}">Próxima</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="{% my_url categoria_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Ultima</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
 
 
 

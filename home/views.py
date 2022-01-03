@@ -1,5 +1,7 @@
 from django.db.models import query
 from django.shortcuts import render
+from django.shortcuts import redirect
+from django.views.generic import DetailView
 
 from . models import Categorias, Anuncios, Depoimentos 
 
@@ -7,13 +9,27 @@ from . models import Categorias, Anuncios, Depoimentos
 from . filters import AnuncioFilter
 from django.core.paginator import Paginator 
 
+# Form solicitação de anúncio 
+from . forms import SolicitacaoForm, ReclamacoesForm
+
 # Create your views here.
 def index(request):
     categoria = Categorias.objects.all().order_by('-criado')[0:16]
     depoimento = Depoimentos.objects.all().order_by('-criado')[0:5]
+
+    form = ReclamacoesForm()
+
+    if request.method == 'POST':
+        form = ReclamacoesForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+        return redirect('https://google.com')
+    
     context = {
         'lista_de_categorias': categoria,
-        'lista_de_depoimentos': depoimento
+        'lista_de_depoimentos': depoimento, 
+        'form': form, 
     }
     return render(request, 'index.html', context)
 
@@ -41,7 +57,7 @@ def listaDeAnuncios(request):
 
     context['filtered_anuncios'] = filtered_anuncios
 
-    paginated_filtered_anuncios = Paginator(filtered_anuncios.qs, 1)
+    paginated_filtered_anuncios = Paginator(filtered_anuncios.qs, 10)
 
     page_number = request.GET.get('page')
     anuncio_page_obj = paginated_filtered_anuncios.get_page(page_number)
@@ -52,31 +68,132 @@ def listaDeAnuncios(request):
 
     return render(request, 'lista-de-anuncios.html', context)
 
-'''
-def listaDeAnuncios(request):
-    anuncio = Anuncios.objects.all()
-    filtro_de_anuncios = AnuncioFilter(request.GET, queryset=anuncio)
 
-    context = {
-        'lista_de_anuncios': anuncio, 
-        'filter': filtro_de_anuncios
-    }
-    return render(request, 'lista-de-anuncios.html', context)'''
-
-
-def detalhesDoAnuncio(request, pk):
-    anuncio = Anuncios.objects.get(id=pk)
-
-    context = {
-        'detalhes_do_anuncio': anuncio, 
-    }
-
-    return render(request, 'detalhes-do-anuncio.html', context)    
+class DetalhesDoAnuncioView(DetailView):
+    model = Anuncios
+    template_name = 'detalhes-do-anuncio.html'
 
 
 def listaDeCategorias(request, cats):
-    categoria = Anuncios.objects.filter(categoria=cats)
-    context = {
-        'lista_de_categorias': categoria
-    }
+    context = {}
+    filtered_categorias = AnuncioFilter(
+        request.GET, queryset=Anuncios.objects.filter(categoria=cats)
+    )
+
+    context['filtered_categorias'] = filtered_categorias
+
+    paginated_filter_categorias = Paginator(filtered_categorias.qs, 10)
+
+    page_number = request.GET.get('page')
+    categorias_page_obj = paginated_filter_categorias.get_page(page_number)
+
+    context['categoria_page_obj'] = categorias_page_obj
+
+    
     return render(request, 'lista-de-categorias.html', context)
+
+
+
+
+
+
+# Páginas de submeter anúncios 
+def basico(request):
+    form = SolicitacaoForm()
+    if request.method == 'POST':
+        # Quando for enviar imagem, colocar request.FILES
+        form = SolicitacaoForm(request.POST, request.FILES)
+        if form.is_valid(): 
+            form.save()
+        return redirect('https://mpago.la/2Px5UGC')    
+    context = {
+        'form': form, 
+    }
+    return render(request, 'forms/classico.html', context)
+
+
+def classico(request):
+    form = SolicitacaoForm()
+    if request.method == 'POST':
+        # Quando for enviar imagem, colocar request.FILES
+        form = SolicitacaoForm(request.POST, request.FILES)
+        if form.is_valid(): 
+            form.save()
+        return redirect('/classico-2')    
+    context = {
+        'form': form, 
+    }
+    return render(request, 'forms/classico.html', context)
+
+
+def classico_2(request):
+    form = SolicitacaoForm()
+    if request.method == 'POST':
+        # Quando for enviar imagem, colocar request.FILES
+        form = SolicitacaoForm(request.POST, request.FILES)
+        if form.is_valid(): 
+            form.save()
+        return redirect('https://mpago.la/2Px5UGC')    
+    context = {
+        'form': form, 
+    }
+    return render(request, 'forms/classico-2.html', context)
+
+
+def premium(request):
+    form = SolicitacaoForm()
+    if request.method == 'POST':
+        # Quando for enviar imagem, colocar request.FILES
+        form = SolicitacaoForm(request.POST, request.FILES)
+        if form.is_valid(): 
+            form.save()
+        return redirect('/premium-2')    
+    context = {
+        'form': form, 
+    }
+    return render(request, 'forms/premium.html', context)
+
+
+def premium_2(request):
+    form = SolicitacaoForm()
+    if request.method == 'POST':
+        # Quando for enviar imagem, colocar request.FILES
+        form = SolicitacaoForm(request.POST, request.FILES)
+        if form.is_valid(): 
+            form.save()
+        return redirect('/premium-3')    
+    context = {
+        'form': form, 
+    }
+    return render(request, 'forms/premium.html', context)
+
+
+def premium_3(request):
+    form = SolicitacaoForm()
+    if request.method == 'POST':
+        # Quando for enviar imagem, colocar request.FILES
+        form = SolicitacaoForm(request.POST, request.FILES)
+        if form.is_valid(): 
+            form.save()
+        return redirect('/premium-4')    
+    context = {
+        'form': form, 
+    }
+    return render(request, 'forms/premium.html', context)
+
+
+def premium_4(request):
+    form = SolicitacaoForm()
+    if request.method == 'POST':
+        # Quando for enviar imagem, colocar request.FILES
+        form = SolicitacaoForm(request.POST, request.FILES)
+        if form.is_valid(): 
+            form.save()
+        return redirect('https://mpago.la/2Px5UGC')    
+    context = {
+        'form': form, 
+
+    }
+    return render(request, 'forms/premium-4.html', context)
+
+

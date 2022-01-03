@@ -1,4 +1,4 @@
-{% load static %} {% load widget_tweaks %}
+{% load static %} {% load widget_tweaks %} {% load home_extras %}
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -42,12 +42,12 @@
                     <!-- Form Start -->
                     <div class="row">
                         <div class="col-12 grid-margin stretch-card">
-                            <div class="card" style="background-color:yellow;">
+                            <div class="card" style="background-color: yellow;">
                                 <div class="card-body">
                                     <h4 class="card-title">Aqui você acha os melhores parceiros para sua festa</h4>
                                     <form>
                                         <div class="form-group">
-                                            {% render_field filtered_anuncios.form.nome class="form-control" placeholder="Ex: confeiteiro..." %}
+                                            {% render_field filtered_anuncios.form.titulo class="form-control" placeholder="Ex: confeiteiro..." %}
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
@@ -83,9 +83,9 @@
 
                                 <i class="mdi mdi-heart-outline"></i>
                             </div>
-                            <h5 class="d-block text-muted">{{ anuncio.nome }}</h5>
+                            <h5 class="d-block text-muted">{{ anuncio.titulo }}</h5>
                             <small class="d-block text-muted">{{ anuncio.endereco }}
-                              </small>
+                            </small>
                             <div class="d-flex justify-content-between font-weight-semibold">
                                 <p class="mb-0">
                                     <i class="mdi mdi-cellphone star-color pr-1"></i>{{ anuncio.telefone }}</p>
@@ -95,7 +95,7 @@
                             </div>
                             <h6>{{ anuncio.estado }}</h6>
 
-                            <a class="btn btn-info" href="{% url 'detalhes-do-anuncio' anuncio.pk %}">Ver</a>
+                            <a class="btn btn-info" href="{{ anuncio.get_absolute_url }}">Ver</a>
 
 
 
@@ -108,27 +108,65 @@
                     </div>
 
 
-
                     {% endfor %}
 
+                    <!--
+                        <div class="pagination">
+                            <span class="step-links">
 
-                    <div class="pagination">
-                        <span class="step-links">
+                                {% if anuncio_page_obj.has_previous %}
+                                
+                                <a href="{% my_url 1 'page' request.GET.urlencode %}" >Primeira</a> 
+                                <a href="{% my_url anuncio_page_obj.previous_page_number 'page' request.GET.urlencode %}" >Volta</a>
+
+                                {% endif %}
+
+                                <span class="current">
+                                    Page {{ anuncio_page_obj.number }} of {{anuncio_page_obj.paginator.num_page }}
+                                </span> 
+
+                                {% if anuncio_page_obj.has_next %}
+
+                                <a href="{% my_url anuncio_page_obj.next_page_number 'page' request.GET.urlencode %}">Proxima</a>
+                                <a href="{% my_url anuncio_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Ùltima</a> 
+
+                                {% endif %}
+
+                            </span>
+                        </div> 
+                        -->
+
+
+
+                    <nav aria-label="..." style="margin: 20px 0 20px 0;">
+                        <ul class="pagination">
 
                             {% if anuncio_page_obj.has_previous %}
-                            <a href="?page=1" >Primeira</a>
-                            <a href="?page={{ anuncio_page_obj.previous_page_number }}" >Volta</a>
 
+                            <li class="page-item disabled">
+                                <a class="page-link" href="{% my_url anuncio_page_obj.previous_page_number 'page' request.GET.urlencode %}" tabindex="-1">Primeira</a>
+                            </li>
+
+                            <li class="page-item"><a class="page-link" href="{% my_url 1 'page' request.GET.urlencode %}">Voltar</a></li>
                             {% endif %}
 
-                            <span class="current">
-                                Page {{ anuncio_page_obj.number }} of {{anuncio_page_obj.paginator.num_page }}
-                            </span> {% if anuncio_page_obj.has_next %}
-                        <a href="?page={{ anuncio_page_obj.next_page_number }}">Proxima</a>
-                        <a href="?page={{ anuncio_page_obj.paginator.num_pages }}">Ùltima</a> {% endif %}
+                            <li class="page-item active">
+                                <a class="page-link" href="#"> Página - {{ anuncio_page_obj.number }} <span class="sr-only">of {{anuncio_page_obj.paginator.num_page }}</span></a>
+                            </li>
+                            {% if anuncio_page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="{% my_url anuncio_page_obj.next_page_number 'page' request.GET.urlencode %}">Próxima</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="{% my_url anuncio_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Ultima</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
 
-                        </span>
-                    </div>
+
+
+
+
 
 
 

@@ -1,4 +1,5 @@
-{% load static %}
+{% load static %} {% load pwa %} {% progressive_web_app_meta %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -6,17 +7,15 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Tô Aqui Festas </title>
+    <title>Tô Aqui Festa - Cadastre-se anúncie para milhares de pessoas</title>
 
     {% include 'includes/css.html' %}
 
-
-
-    <!-- Swiper CDN Testimonials Area -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.js"></script>
+
 
 
 </head>
@@ -27,9 +26,7 @@
         <div class="horizontal-menu">
 
 
-
             {% include 'includes/header.html' %}
-
 
 
         </div>
@@ -37,69 +34,51 @@
         <div class="container-fluid page-body-wrapper">
             <div class="main-panel">
                 <div class="content-wrapper pb-0">
-                    <div class="page-header flex-wrap">
-                        <div class="header-left">
-
-                        </div>
-                        <div class="header-right d-flex flex-wrap mt-md-2 mt-lg-0">
-
-                        </div>
-                    </div>
 
 
-                    <!-- image card row starts here -->
+
                     <div class="row">
 
+
+
+
                         {% for categoria in lista_de_categorias %}
+
                         <div class="col-sm-4 stretch-card grid-margin">
                             <div class="card">
                                 <div class="card-body p-0">
-                                    <img class="img-fluid w-100" src="{{ categoria.imagem.thumb.url }}" alt="" />
+                                    <img class="img-fluid w-100" src="{{ categoria.imagem.thumb.url }}" alt="">
                                 </div>
                                 <div class="card-body px-3 text-dark">
                                     <div class="d-flex justify-content-between">
-
-
+                                        <p class="text-muted font-13 mb-0">TÔ AQUI FESTAS</p>
+                                        <i class="mdi mdi-heart-outline"></i>
                                     </div>
-                                    <a href="{% url 'lista-de-categorias' categoria.pk %}">Ver</a>
                                     <h5 class="font-weight-semibold"> {{ categoria.nome }} </h5>
-
+                                    <div class="d-flex justify-content-between font-weight-semibold">
+                                        <p class="mb-0">
+                                            <i class="mdi mdi-star star-color pr-1"></i> <a href="{% url 'lista-de-categorias' categoria.pk %}">Ver</a></p>
+                                        <p class="mb-0">Categoria</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                         {% endfor %}
 
-                    </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div class="row">
                         <div class="col-sm-12 stretch-card grid-margin">
                             <div class="card">
-
-
-
-                                <div class="htmls">
-                                    <div class="bodys">
-
-                                        <section class="sectionS">
+                                <!-- Block-->
+                                <section class="htmls">
+                                    <section class="bodys">
+                                        <section class="sections" style="">
                                             <div class="container">
                                                 <div class="section-title">
                                                     <h2>Depoimentos</h2>
                                                     <span class="section-separator"></span>
-                                                    <p>O que nossos clientes falam sobre nós.</p>
+                                                    <p>O que nossos clientes estão falando de nós.</p>
                                                 </div>
                                             </div>
                                             <div class="testimonials-carousel-wrap">
@@ -107,10 +86,9 @@
                                                 <div class="listing-carousel-button listing-carousel-button-prev"><i class="fa fa-caret-left" style="color: #fff"></i></div>
                                                 <div class="testimonials-carousel">
                                                     <div class="swiper-container">
-
-
-                                                        {% for depoimento in lista_de_depoimentos %}
                                                         <div class="swiper-wrapper">
+                                                            {% for depoimento in lista_de_depoimentos %}
+                                                            <!--second--->
                                                             <div class="swiper-slide">
                                                                 <div class="testi-item">
                                                                     <div class="testi-avatar"><img src="{{ depoimento.imagem.thumb.url }}"></div>
@@ -133,136 +111,98 @@
                                                                     <div class="testimonials-text-after"><i class="fa fa-quote-left"></i></div>
                                                                 </div>
                                                             </div>
+                                                            <!--third-->
                                                             {% endfor %}
-
-
-
-
-
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="tc-pagination"></div>
                                             </div>
                                         </section>
-
-
-
-                                    </div>
-
-                                </div>
-
-
-
+                                    </section>
+                                </section>
+                                <!-- End Block-->
                             </div>
                         </div>
-                    </div>
 
-
-
-                    <style>
-
-                    </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div class="row">
 
 
                         <div class="col-sm-6 stretch-card grid-margin">
-
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Reclamações e elogios</h4>
+                                    <!-- Block-->
+                                    <div class="card-body">
+                                        <h4 class="card-title">Denuncia </h4>
+                                        <p class="card-description">Não nos responsabilizamos pelos anúncios de nossos parceiros somos apenas um veículo de divulgação</p>
+                                        <form class="forms-sample" method="post">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label for="exampleInputUsername1">Nome Completo</label>
+                                                <input type="text" name="nome" class="form-control" id="exampleInputUsername1" placeholder="Nome completo">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Telefone</label>
+                                                <input type="number" name="telefone" class="form-control" id="exampleInputEmail1" placeholder="Telefone">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">E-mail</label>
+                                                <input type="email" name="email" class="form-control" id="exampleInputPassword1" placeholder="E-mail">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputConfirmPassword1">Assunto</label>
+                                                <input type="text" name="assunto" class="form-control" id="exampleInputConfirmPassword1" placeholder="Assunto">
+                                            </div>
+                                            <h6>Dados do parceiro</h6>
+                                            <div class="form-group">
+                                                <label for="exampleInputConfirmPassword1">Nome do parceiro</label>
+                                                <input type="text" name="nome_do_parceiro" class="form-control" id="exampleInputConfirmPassword1" placeholder="Nome do parceiro ou empresa">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputConfirmPassword1">Fatos</label>
+                                                <textarea class="form-control" name="fatos" id="exampleTextarea1" rows="4"></textarea>
+                                            </div>
 
-                                    <div class="form-group">
-                                        <label>Nome completo</label>
-                                        <input type="text" class="form-control form-control-lg" placeholder="Username" aria-label="Username">
+                                            <div class="form-check form-check-flat form-check-primary">
+                                                <label class="form-check-label">
+                                                  <input type="checkbox" class="form-check-input" required > Estou ciente e quero continuar<i class="input-helper"></i></label>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary mr-2">Enviar</button>
+                                            <button class="btn btn-light">Cancelar</button>
+                                        </form>
                                     </div>
-                                    <div class="form-group">
-                                        <label>E-mail</label>
-                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Telefone/WhatsApp</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Nome do parceiro</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
-                                    </div>
-                                    <label>Reclamação</label>
-                                    <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
-                                    <div class="form-group"></div>
-                                    <button type="submit" class="btn btn-primary mr-2"> Reclamar </button>
+                                    <!-- End Block-->
                                 </div>
-
-
                             </div>
-
                         </div>
-
-
                         <div class="col-sm-6 stretch-card grid-margin">
-
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
-                                        <div class="card-title"> Reclamações & Elogios <small class="d-block text-muted">Não nos responsabilizamos pelos anuncios de nossos parceiros, somos apenas um 
-                        veiculo de informação
-                      </small>
+                                        <div class="card-title">Reclamação ou elogios <small class="d-block text-muted">Preecha nossos formulário para fazer uma
+                                            reclamação ou elogio
+                                        </small>
                                         </div>
                                         <div class="d-flex text-muted font-20">
                                             <i class="mdi mdi-whatsapp mouse-pointer"></i>
                                             <i class="mdi mdi-instagram mouse-pointer"></i>
                                         </div>
-
                                     </div>
-                                    <p>Preencha nosso formulário para fazer uma reclamação ou elogios<br> iremos averiguar cada reclamação para providenciarmos a exclusão do parceiro.
-                                    </p>
-                                    <h3 class="font-weight-bold mb-0">E-mail: <span class="text-success h5">suporte@dominio.com<i class="mdi mdi-email"></i></span>
-                                    </h3>
-
-
                                 </div>
                             </div>
-
-
                         </div>
 
 
+                        {% include 'includes/footer.html' %}
+
+                        <!-- partial -->
                     </div>
-
-
-
-
-                    {% include 'includes/footer.html' %}
-
-                    <!-- partial -->
+                    <!-- main-panel ends -->
                 </div>
-                <!-- main-panel ends -->
+                <!-- page-body-wrapper ends -->
             </div>
-            <!-- page-body-wrapper ends -->
-        </div>
 
 
-        {% include 'includes/js.html' %}
+            {% include 'includes/js.html' %}
 
 </body>
 

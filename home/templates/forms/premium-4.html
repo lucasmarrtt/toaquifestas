@@ -1,0 +1,178 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>To Aqui Festas - Cadastro Anúncio Premium</title>
+
+    {% include 'includes/css.html' %}
+
+
+
+    <!-- Swiper CDN Testimonials Area -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_horizontal-navbar.html -->
+        <div class="horizontal-menu">
+
+
+
+            {% include 'includes/header.html' %}
+
+
+
+
+        </div>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <div class="main-panel">
+                <div class="content-wrapper pb-0">
+                    <div class="page-header flex-wrap">
+                        <div class="header-left">
+
+                        </div>
+                        <div class="header-right d-flex flex-wrap mt-md-2 mt-lg-0">
+
+                        </div>
+                    </div>
+
+                    <!-- image card row starts here -->
+                    <div class="row">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+
+
+                                <div class="card-body">
+                                    <h4 class="card-title">Solicitação de anúncio Premium 4º</h4>
+                                    <p class="card-description">Preencha os campos e envie seus anúncios, após a verificação faremos a publição</p>
+
+                                    <form class="forms-sample" action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label for="exampleInputName1">Nome completo <small>(obrigatório)</small></label>
+                                            <input type="text" name="nomec" class="form-control" id="exampleInputName1" placeholder="Nome Completo" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail3">CPF <small>(obrigatório)</small></label>
+                                            <input type="number" name="cpfc" class="form-control" id="exampleInputEmail3" placeholder="CPF" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">Telefone <small>(obrigatório)</small></label>
+                                            <input type="number" name="telefonec" class="form-control" id="exampleInputPassword4" placeholder="Telefone De Contato" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">E-mail <small>(obrigatório)</small></label>
+                                            <input type="email" name="emailc" class="form-control" id="exampleInputPassword4" placeholder="E-mail" required>
+                                        </div>
+
+                                        <h6>Dados do Anúncio</h6>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">Imagem <small>(obrigatório)</small></label>
+                                            <input type="file" name="imagem" class="form-control" id="exampleInputPassword4" placeholder="Imagem Do Anúncio" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">Título do anúncio <small>(obrigatório)</small></label>
+                                            <input type="text" name="titulo" class="form-control" id="exampleInputPassword4" placeholder="Título Do Ánúncio" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">Descrição <small>(obrigatório)</small></label>
+                                            <textarea name="descricao" class="form-control" id="exampleTextarea1" rows="4" required></textarea required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">Endereço <small>(obrigatório)</small></label>
+                                            <input type="text" name="endereco" class="form-control" id="exampleInputPassword4" placeholder="Endereço" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">CEP <small>(obrigatório)</small></label>
+                                            <input type="number" name="cep" class="form-control" id="exampleInputPassword4" placeholder="CEP" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">Estado <small>(obrigatório)</small></label>
+                                            <input type="text" name="estado" class="form-control" id="exampleInputPassword4" placeholder="Estado" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">Cidade <small>(obrigatório)</small></label>
+                                            <input type="text" name="cidade" class="form-control" id="exampleInputPassword4" placeholder="Cidade" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">Telefone <small>(obrigatório)</small></label>
+                                            <input type="number" name="telefone" class="form-control" id="exampleInputPassword4" placeholder="Telefone" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">E-mail</label>
+                                            <input type="email" name="email" class="form-control" id="exampleInputPassword4" placeholder="E-mail">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">Facebook</label>
+                                            <input type="text" name="facebook" class="form-control" id="exampleInputPassword4" placeholder="Facebook">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">Instagram</label>
+                                            <input type="text" name="Instagram" class="form-control" id="exampleInputPassword4" placeholder="Instagram">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">Produtos <small>(obrigatório)</small></label>
+                                            <textarea class="form-control" name="produtos" id="exampleTextarea1" rows="4" required></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">Link Google Maps</label>
+                                            <textarea class="form-control" name="google_maps" id="exampleTextarea1" rows="4"></textarea>
+                                        </div>
+
+                                        <button class="btn btn-light">Enviar e pagar</button>
+
+
+
+                                </div>
+
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                {% include 'includes/footer.html' %}
+
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+
+
+    {% include 'includes/js.html' %}
+
+</body>
+
+</html>

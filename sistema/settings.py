@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'home',
     'django_filters',
     'widget_tweaks',
+    'pwa', 
     
 ]
 
@@ -141,3 +142,41 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
+
+
+
+# PWA Configurações 
+
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/assets/js', 'serviceworker.js')
+
+
+
+PWA_APP_NAME = 'Tô Aqui Festas'
+PWA_APP_DESCRIPTION = "Os melhores anúncios vocÊ encontra aqui"
+PWA_APP_THEME_COLOR = '#000000'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': 'static/assets/images/festa.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': 'static/assets/images/festa.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': 'static/assets/images/festa.png',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'pt-br'
