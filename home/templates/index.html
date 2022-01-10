@@ -7,9 +7,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Tô Aqui Festa - Cadastre-se anúncie para milhares de pessoas</title>
-
-    {% include 'includes/css.html' %}
+    <title>Tô Aqui Festa - Cadastre-se anuncie para milhares de pessoas</title>
+    <meta name=”description” content="Tô Aqui Festas - Encontre tudo que você precisa para sua festa, bolos, salgados, doces, animadores, brinquedos, sua festa começa aqui."> {% include 'includes/css.html' %}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -38,6 +37,19 @@
 
 
                     <div class="row">
+
+
+
+
+
+                        <div class="col-sm-12 stretch-card grid-margin">
+                            <div class="card">
+                                <center>
+                                    <h6 style="padding: 10px 0px 10px 0px;">No to aqui festas você acha tudo para sua festa</h6>
+                                </center>
+
+                            </div>
+                        </div>
 
 
 
@@ -73,12 +85,12 @@
                                 <!-- Block-->
                                 <section class="htmls">
                                     <section class="bodys">
-                                        <section class="sections" style="">
+                                        <section class="sections">
                                             <div class="container">
                                                 <div class="section-title">
                                                     <h2>Depoimentos</h2>
                                                     <span class="section-separator"></span>
-                                                    <p>O que nossos clientes estão falando de nós.</p>
+                                                    <p>O que as pessoas falam de nossos parceiros</p>
                                                 </div>
                                             </div>
                                             <div class="testimonials-carousel-wrap">
@@ -132,9 +144,14 @@
                                 <div class="card-body">
                                     <!-- Block-->
                                     <div class="card-body">
-                                        <h4 class="card-title">Denuncia </h4>
-                                        <p class="card-description">Não nos responsabilizamos pelos anúncios de nossos parceiros somos apenas um veículo de divulgação</p>
-                                        <form class="forms-sample" method="post">
+
+                                        <div class="card-title">Reclamação ou elogios <small class="d-block text-muted">Preecha nossos formulário para fazer uma
+                                            reclamação ou elogio
+                                        </small>
+                                        </div>
+                                        <h4 class="card-title">Iremos averiguar cada reclamação para providenciarmos a exclusão do parceiro.</h4>
+
+                                        <form class="forms-sample" method="post" enctype='multipart/form-data'>
                                             {% csrf_token %}
                                             <div class="form-group">
                                                 <label for="exampleInputUsername1">Nome Completo</label>
@@ -142,7 +159,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Telefone</label>
-                                                <input type="number" name="telefone" class="form-control" id="exampleInputEmail1" placeholder="Telefone">
+                                                <input type="text" name="telefone" class="form-control phone_with_ddd" id="exampleInputEmail1" placeholder="Telefone">
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">E-mail</label>
@@ -158,10 +175,13 @@
                                                 <input type="text" name="nome_do_parceiro" class="form-control" id="exampleInputConfirmPassword1" placeholder="Nome do parceiro ou empresa">
                                             </div>
                                             <div class="form-group">
+                                                <label for="exampleInputConfirmPassword1">Arquivo</label>
+                                                <input type="file" name="arquivo" class="form-control" id="exampleInputConfirmPassword1" placeholder="Nome do parceiro ou empresa">
+                                            </div>
+                                            <div class="form-group">
                                                 <label for="exampleInputConfirmPassword1">Fatos</label>
                                                 <textarea class="form-control" name="fatos" id="exampleTextarea1" rows="4"></textarea>
                                             </div>
-
                                             <div class="form-check form-check-flat form-check-primary">
                                                 <label class="form-check-label">
                                                   <input type="checkbox" class="form-check-input" required > Estou ciente e quero continuar<i class="input-helper"></i></label>
@@ -178,16 +198,29 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
-                                        <div class="card-title">Reclamação ou elogios <small class="d-block text-muted">Preecha nossos formulário para fazer uma
-                                            reclamação ou elogio
-                                        </small>
-                                        </div>
+                                        <p class="card-description">Não nos responsabilizamos pelos anúncios de nossos parceiros somos apenas um veículo de divulgação</p>
+
+
+
                                         <div class="d-flex text-muted font-20">
-                                            <i class="mdi mdi-whatsapp mouse-pointer"></i>
+                                            <a href="https://api.whatsapp.com/send?phone=5521970688269" target="_blank"><i class="mdi mdi-whatsapp mouse-pointer"></i></a></i>
                                             <i class="mdi mdi-instagram mouse-pointer"></i>
                                         </div>
+
                                     </div>
+                                    <h5>Dicas de segurança</h5>
+                                    <h6>O que fazer para evitar possiveis golpes</h6>
+                                    <p>
+                                        - Tente fazer com parceiros que tenha referências (procure ver a página de depoimentos);<br> - Faça contratos e guarde todos os comprovantes de pagamento; <br> - Procure saber o endereço e, se puder, tente marcar
+                                        uma visita para degustação e ver os produtos no endereço do parceiro. Isso ajudaria numa possível cobrança pessoalmente. <br> - Desconfie de valores muito baixos ou fora do padrão de mercado. <br> - Faça reclamação
+                                        no site para que possamos excluir o golpista e não prejudicar outros clientes. <br>
+                                    </p>
+                                    <center>
+                                        <h3>Clientes unidos = Golpistas banidos</h3>
+                                    </center>
                                 </div>
+
+                                <img style="padding: 100px;" src="{% static 'assets/images/to-aqui-festas.png' %}">
                             </div>
                         </div>
 
@@ -203,6 +236,10 @@
 
 
             {% include 'includes/js.html' %}
+
+
+
+
 
 </body>
 

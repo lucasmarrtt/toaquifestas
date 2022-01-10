@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>To Aqui Festas - Renovação</title>
+    <meta name="robots" content="noindex" /> {% include 'includes/css.html' %}
+
+
+
+    <!-- Swiper CDN Testimonials Area -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_horizontal-navbar.html -->
+        <div class="horizontal-menu">
+
+
+
+            {% include 'includes/header.html' %}
+
+
+
+
+        </div>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <div class="main-panel">
+                <div class="content-wrapper pb-0">
+                    <div class="page-header flex-wrap">
+                        <div class="header-left">
+
+                        </div>
+                        <div class="header-right d-flex flex-wrap mt-md-2 mt-lg-0">
+
+                        </div>
+                    </div>
+
+                    <!-- image card row starts here -->
+                    <div class="row">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+
+
+                                <div class="card-body">
+                                    <h4 class="card-title">Renovação de anúncio</h4>
+
+
+                                    <form class="forms-sample" action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label for="exampleInputName1">Nome completo <small>(obrigatório)</small></label>
+                                            <input type="text" name="nome" class="form-control" id="exampleInputName1" placeholder="Nome Completo" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail3">CPF <small>(obrigatório)</small></label>
+                                            <input type="text" name="cpf" class="form-control cpf" id="exampleInputEmail3" placeholder="CPF" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">Telefone <small>(obrigatório)</small></label>
+                                            <input type="text" name="telefone" class="form-control phone_with_ddd" id="exampleInputPassword4" placeholder="Telefone De Contato" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword4">E-mail <small>(obrigatório)</small></label>
+                                            <input type="email" name="email" class="form-control" id="exampleInputPassword4" placeholder="E-mail" required>
+                                        </div>
+
+                                        <button class="btn btn-light">Enviar</button>
+                                </div>
+
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                {% include 'includes/footer.html' %}
+
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+
+
+    {% include 'includes/js.html' %}
+
+</body>
+
+</html>

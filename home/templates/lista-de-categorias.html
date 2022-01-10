@@ -56,11 +56,16 @@
                                             {% render_field filtered_categorias.form.titulo class="form-control" placeholder="Ex: confeiteiro..." %}
                                         </div>
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="inputEmail4">Estado</label> {% render_field filtered_categorias.form.estado class="form-control" placeholder="nome" %}
+                                            <div class="form-group col-md-4">
+                                                <label for="inputState">Estado</label> {% render_field filtered_categorias.form.estado class="form-control" placeholder="nome" %}
                                             </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="inputPassword4">Cidade</label> {% render_field filtered_categorias.form.cidade class="form-control" placeholder="nome" %}
+
+                                            <div class="form-group col-md-4">
+                                                <label for="inputState">Cidade</label> {% render_field filtered_categorias.form.cidade class="form-control" placeholder="nome" %}
+                                            </div>
+
+                                            <div class="form-group col-md-4">
+                                                <label for="inputState">Bairro</label> {% render_field filtered_categorias.form.bairro class="form-control" placeholder="nome" %}
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Procurar</button>

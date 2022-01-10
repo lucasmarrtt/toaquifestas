@@ -1,0 +1,125 @@
+{% load static %} {% load pwa %} {% progressive_web_app_meta %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Tô Aqui Festa - Cadastre-se anúncie para milhares de pessoas</title>
+
+    {% include 'includes/css.html' %}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.js"></script>
+
+
+
+</head>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_horizontal-navbar.html -->
+        <div class="horizontal-menu">
+
+
+            {% include 'includes/header.html' %}
+
+
+        </div>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <div class="main-panel">
+                <div class="content-wrapper pb-0">
+
+
+
+                    <div class="row">
+
+
+
+
+
+
+
+
+                        <div class="col-sm-12 stretch-card grid-margin">
+                            <div class="card">
+                                <!-- Block-->
+                                <section class="htmls">
+                                    <section class="bodys">
+                                        <section class="sections">
+                                            <div class="container">
+                                                <div class="section-title">
+                                                    <h2>Depoimentos</h2>
+                                                    <span class="section-separator"></span>
+                                                    <p>O que as pessoas falam de nossos parceiros.</p>
+                                                </div>
+                                            </div>
+                                            <div class="testimonials-carousel-wrap">
+                                                <div class="listing-carousel-button listing-carousel-button-next"><i class="fa fa-caret-right" style="color: #fff"></i></div>
+                                                <div class="listing-carousel-button listing-carousel-button-prev"><i class="fa fa-caret-left" style="color: #fff"></i></div>
+                                                <div class="testimonials-carousel">
+                                                    <div class="swiper-container">
+                                                        <div class="swiper-wrapper">
+                                                            {% for depoimento in lista_de_depoimentos %}
+                                                            <!--second--->
+                                                            <div class="swiper-slide">
+                                                                <div class="testi-item">
+                                                                    <div class="testi-avatar"><img src="{{ depoimento.imagem.thumb.url }}"></div>
+                                                                    <div class="testimonials-text-before"><i class="fa fa-quote-right"></i></div>
+                                                                    <div class="testimonials-text">
+                                                                        <div class="listing-rating">
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                        </div>
+                                                                        <p>{{ depoimento.depoimento }}</p>
+                                                                        <a href="#" class="text-link"></a>
+                                                                        <div class="testimonials-avatar">
+                                                                            <h3>{{ depoimento.nome }}</h3>
+                                                                            <h4>{{ depoimento.empresa }}</h4>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="testimonials-text-after"><i class="fa fa-quote-left"></i></div>
+                                                                </div>
+                                                            </div>
+                                                            <!--third-->
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tc-pagination"></div>
+                                            </div>
+                                        </section>
+                                    </section>
+                                </section>
+                                <!-- End Block-->
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        {% include 'includes/footer.html' %}
+
+                        <!-- partial -->
+                    </div>
+                    <!-- main-panel ends -->
+                </div>
+                <!-- page-body-wrapper ends -->
+            </div>
+
+
+            {% include 'includes/js.html' %}
+
+</body>
+
+</html>

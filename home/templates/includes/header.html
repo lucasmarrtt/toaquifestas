@@ -1,13 +1,13 @@
 {% load static %}
 
-<nav class="navbar top-navbar col-lg-12 col-12 p-0">
+<nav class="navbar top-navbar col-lg-12 col-12 p-0" style="background-color: #00a859;">
     <div class="container">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo" href="index.html">
-                <img src="{% static 'assets/images/festa.jpg' %}" style="width: 80px; height: 80px; padding: 10px;" alt="logo" />
+            <a class="navbar-brand brand-logo" href="/">
+                <img src="{% static 'assets/images/to-aqui-festas-logo.svg' %}" style="width: 160px; height: 80px; padding: 10px;" alt="logo" />
 
             </a>
-            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{% static 'assets/images/festa.jpg' %}" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini" href="/"><img style="width: 50px; height: 50px;" src="{% static 'assets/images/to-aqui-festas-logo.svg' %}" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
 
@@ -97,7 +97,8 @@
 
             <li class="nav-item">
                 <div class="nav-link d-flex">
-                    <button class="btn btn-sm bg-success text-white"> Promoções </button>
+                    <button class="btn btn-sm bg-success text-white"> <a style="color: #fff;" href="/lista-de-promocoes">Promoções</a></button>
+
 
 
                 </div>

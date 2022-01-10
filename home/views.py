@@ -2,15 +2,16 @@ from django.db.models import query
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views.generic import DetailView
+from django.views.generic.base import ContextMixin
 
-from . models import Categorias, Anuncios, Depoimentos 
+from . models import Categorias, Anuncios, Depoimentos, Promocoes, Renovacao
 
 # Filtro e paginação
-from . filters import AnuncioFilter
+from . filters import AnuncioFilter, PromocoesFilter
 from django.core.paginator import Paginator 
 
 # Form solicitação de anúncio 
-from . forms import SolicitacaoForm, ReclamacoesForm
+from . forms import SolicitacaoForm, ReclamacoesForm, RenovacaoForm
 
 # Create your views here.
 def index(request):
@@ -20,11 +21,11 @@ def index(request):
     form = ReclamacoesForm()
 
     if request.method == 'POST':
-        form = ReclamacoesForm(request.POST)
+        form = ReclamacoesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
 
-        return redirect('https://google.com')
+        return redirect('/')
     
     context = {
         'lista_de_categorias': categoria,
@@ -43,7 +44,15 @@ def planos(request):
 
 
 def contato(request):
-    return render(request, 'contato.html')    
+    return render(request, 'contato.html')   
+
+
+def depoimentos(request):
+    depoimento = Depoimentos.objects.all().order_by('-criado')[0:20]
+    context = {
+        'lista_de_depoimentos': depoimento,
+    }
+    return render(request, 'depoimentos.html', context)      
 
 
 def listaDeAnuncios(request):
@@ -93,8 +102,33 @@ def listaDeCategorias(request, cats):
     return render(request, 'lista-de-categorias.html', context)
 
 
+def listaDePromocoes(request):
+    context = {}
+
+    filtered_promocoes = PromocoesFilter(
+        request.GET,
+        queryset=Promocoes.objects.all()
+
+    )
+
+    context['filtered_promocoes'] = filtered_promocoes
+
+    paginated_filtered_promocoes = Paginator(filtered_promocoes.qs, 1)
+
+    page_number = request.GET.get('page')
+    promocoes_page_obj = paginated_filtered_promocoes.get_page(page_number)
+
+    context['promocoes_page_obj'] = promocoes_page_obj
 
 
+
+    return render(request, 'lista-de-promocoes.html', context)
+
+
+
+class DetalhesDaPromocaoView(DetailView):
+    model = Promocoes
+    template_name = 'detalhes-da-promocao.html'
 
 
 # Páginas de submeter anúncios 
@@ -105,11 +139,11 @@ def basico(request):
         form = SolicitacaoForm(request.POST, request.FILES)
         if form.is_valid(): 
             form.save()
-        return redirect('https://mpago.la/2Px5UGC')    
+        return redirect('https://mpago.la/1Z6bUAA')    
     context = {
         'form': form, 
     }
-    return render(request, 'forms/classico.html', context)
+    return render(request, 'forms/basico.html', context)
 
 
 def classico(request):
@@ -133,7 +167,7 @@ def classico_2(request):
         form = SolicitacaoForm(request.POST, request.FILES)
         if form.is_valid(): 
             form.save()
-        return redirect('https://mpago.la/2Px5UGC')    
+        return redirect('https://mpago.la/2GiCCaH')    
     context = {
         'form': form, 
     }
@@ -189,7 +223,7 @@ def premium_4(request):
         form = SolicitacaoForm(request.POST, request.FILES)
         if form.is_valid(): 
             form.save()
-        return redirect('https://mpago.la/2Px5UGC')    
+        return redirect('https://mpago.la/1ZRy6KZ')    
     context = {
         'form': form, 
 
@@ -197,3 +231,16 @@ def premium_4(request):
     return render(request, 'forms/premium-4.html', context)
 
 
+def renovacao(request):
+    form = RenovacaoForm()
+    if request.method == 'POST':
+        # Quando for enviar imagem, colocar request.FILES
+        form = RenovacaoForm(request.POST)
+        if form.is_valid(): 
+            form.save()
+        return redirect('/')    
+    context = {
+        'form': form, 
+
+    }
+    return render(request, 'renovacao.html', context)

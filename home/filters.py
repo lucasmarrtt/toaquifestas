@@ -1,22 +1,28 @@
 import django_filters 
-from . models import Anuncios
+from . models import Anuncios, Promocoes
 
 class AnuncioFilter(django_filters.FilterSet):
     class Meta:
         model = Anuncios
-        '''fields = [
+        fields = [
             'titulo',
             'estado', 
             'cidade',
             'categoria', 
+            'bairro',
 
-        ]'''
+        ]
 
-        fields = {
-            'titulo': ['exact', 'contains'],
-            'estado': ['exact'],
-            'cidade': ['exact'],
-            'categoria': ['exact'],
-            
-        }
+class PromocoesFilter(django_filters.FilterSet):
+    class Meta:
+        
+        model = Promocoes
+        fields = [
+            'titulo',
+            'estado', 
+            'cidade',
+            'categoria',
+            'bairro',
+        ]
 
+     
