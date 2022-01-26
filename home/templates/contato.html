@@ -40,22 +40,23 @@
                         <div class="card-body">
                             <h4 class="card-title">Contato</h4>
                             <p class="card-description">Preencha nosso formulário e fale com nossa equipe.</p>
-                            <form class="forms-sample">
+                            <form class="forms-sample" method="post">
+                                {% csrf_token %}
                                 <div class="form-group">
                                     <label for="exampleInputCity1">Nome</label>
-                                    <input type="text" class="form-control" id="exampleInputCity1" placeholder="Location">
+                                    <input type="text" name="nome" class="form-control" id="exampleInputCity1" placeholder="Nome completo">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputCity1">E-mail</label>
-                                    <input type="text" class="form-control" id="exampleInputCity1" placeholder="Location">
+                                    <input type="email" name="email" class="form-control" id="exampleInputCity1" placeholder="E-mail">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputCity1">Assunto</label>
-                                    <input type="text" class="form-control" id="exampleInputCity1" placeholder="Location">
+                                    <input type="text" name="assunto" class="form-control" id="exampleInputCity1" placeholder="Assunto">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleTextarea1">Mensagem</label>
-                                    <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
+                                    <textarea class="form-control" name="mensagem" id="exampleTextarea1" rows="4"></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary mr-2"> Enviar </button>
 

@@ -4,18 +4,26 @@ from django.shortcuts import redirect
 from django.views.generic import DetailView
 from django.views.generic.base import ContextMixin
 
-from . models import Categorias, Anuncios, Depoimentos, Promocoes, Renovacao
+from . models import Categorias, Anuncios, Depoimentos, Renovacao, City, District
+
+# Local Flavor
+from localflavor.br.br_states import STATE_CHOICES
 
 # Filtro e paginação
-from . filters import AnuncioFilter, PromocoesFilter
+from . filters import AnuncioFilter
 from django.core.paginator import Paginator 
 
 # Form solicitação de anúncio 
-from . forms import SolicitacaoForm, ReclamacoesForm, RenovacaoForm
+from . forms import SolicitacaoForm, ReclamacoesForm, RenovacaoForm, StateForm
+
+# Envio de E-mail
+from django.core.mail import send_mail
+
+from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
-    categoria = Categorias.objects.all().order_by('-criado')[0:16]
+    categoria = Categorias.objects.all().order_by('-criado')[0:19]
     depoimento = Depoimentos.objects.all().order_by('-criado')[0:5]
 
     form = ReclamacoesForm()
@@ -44,7 +52,30 @@ def planos(request):
 
 
 def contato(request):
-    return render(request, 'contato.html')   
+    if request.method == 'POST':
+        name = request.POST.get('nome')
+        email = request.POST.get('email')
+        subject = request.POST.get('assunto')
+        message = request.POST.get('mensagem')
+
+        data = {
+            'name': name,
+            'email': email,
+            'subject': subject,
+            'message': message, 
+        }
+        message = '''
+        Nova mensagem: {}
+
+        De: {}
+        
+        '''.format(data['message'], data['email'])
+
+        send_mail(data['subject'], message, '', ['contato@toaquifestas.com.br'])
+
+        return redirect('/')
+
+    return render(request, 'contato.html', {})   
 
 
 def depoimentos(request):
@@ -52,30 +83,97 @@ def depoimentos(request):
     context = {
         'lista_de_depoimentos': depoimento,
     }
-    return render(request, 'depoimentos.html', context)      
+    return render(request, 'depoimentos.html', context)   
+
+
+def politicaDePrivacidade(request):
+    return render(request, 'politica-de-privacidade.html')  
+
+
+def termosDeUso(request):
+    return render(request, 'termos-de-uso.html')          
 
 
 def listaDeAnuncios(request):
     context = {}
+    context['form'] = StateForm 
 
-    filtered_anuncios = AnuncioFilter(
+    anuncio = Anuncios.objects.all()
+    
+
+    '''
+    q = request.GET.get('bairro')
+    if q:
+        anuncio = Anuncios.objects.filter(bairro=q)
+        context['anuncio'] = anuncio    '''
+
+
+    anuncio_list = AnuncioFilter(
         request.GET,
-        queryset=Anuncios.objects.all()
+        queryset = Anuncios.objects.all()
+    )    
 
-    )
+    context['anuncio_list'] = anuncio_list
 
-    context['filtered_anuncios'] = filtered_anuncios
 
-    paginated_filtered_anuncios = Paginator(filtered_anuncios.qs, 10)
+    paginated_filtered_persons = Paginator(anuncio_list.qs, 10)
 
     page_number = request.GET.get('page')
-    anuncio_page_obj = paginated_filtered_anuncios.get_page(page_number)
+    person_page_obj = paginated_filtered_persons.get_page(page_number)
 
-    context['anuncio_page_obj'] = anuncio_page_obj
+    context['person_page_obj'] = person_page_obj
 
 
+    
 
     return render(request, 'lista-de-anuncios.html', context)
+
+
+
+
+
+
+def filter_list(request):
+    context = {}
+    cities = City.objects.all()
+    districts = District.objects.all()
+    context['states'] = STATE_CHOICES
+    context['cities'] = cities
+    context['districts'] = districts
+
+    return render(request, 'filter-list.html', context)
+
+def cities_ajax(request):
+    uf = request.GET.get('uf')    
+    cities = City.objects.filter(uf=uf)
+    context = {'cities': cities}
+
+    return render(request, 'includes/__cities.html', context)
+
+
+def cities_choices_ajax(request):
+    uf = request.GET.get('uf')    
+    cities = City.objects.filter(uf=uf)
+    context = {'cities': cities}
+
+    return render(request, 'includes/__cities-choices.html', context)    
+
+
+def districts_choices_ajax(request):
+    city = request.GET.get('city')    
+    districts = District.objects.filter(city=city)
+    context = {'districts': districts}
+
+    return render(request, 'includes/__districts-choices.html', context)
+
+
+def districts_ajax(request):
+    city = request.GET.get('city')    
+    districts = District.objects.filter(city=city)
+    context = {'districts': districts}
+
+    return render(request, 'includes/__districts.html', context)    
+
 
 
 class DetalhesDoAnuncioView(DetailView):
@@ -85,8 +183,12 @@ class DetalhesDoAnuncioView(DetailView):
 
 def listaDeCategorias(request, cats):
     context = {}
+
+    context['form'] = StateForm 
+    
     filtered_categorias = AnuncioFilter(
-        request.GET, queryset=Anuncios.objects.filter(categoria=cats)
+        request.GET, 
+        queryset=Anuncios.objects.filter(categoria=cats, publicado=True)
     )
 
     context['filtered_categorias'] = filtered_categorias
@@ -105,15 +207,17 @@ def listaDeCategorias(request, cats):
 def listaDePromocoes(request):
     context = {}
 
-    filtered_promocoes = PromocoesFilter(
+    context['form'] = StateForm 
+
+    filtered_promocoes = AnuncioFilter(
         request.GET,
-        queryset=Promocoes.objects.all()
+        queryset=Anuncios.objects.all().filter(publicado=True, promocao=True)
 
     )
 
     context['filtered_promocoes'] = filtered_promocoes
 
-    paginated_filtered_promocoes = Paginator(filtered_promocoes.qs, 1)
+    paginated_filtered_promocoes = Paginator(filtered_promocoes.qs, 10)
 
     page_number = request.GET.get('page')
     promocoes_page_obj = paginated_filtered_promocoes.get_page(page_number)
@@ -127,7 +231,7 @@ def listaDePromocoes(request):
 
 
 class DetalhesDaPromocaoView(DetailView):
-    model = Promocoes
+    model = Anuncios
     template_name = 'detalhes-da-promocao.html'
 
 
@@ -244,3 +348,15 @@ def renovacao(request):
 
     }
     return render(request, 'renovacao.html', context)
+
+
+def get_json_car_data(request):
+    qs_val = list(Car.objects.values())
+    return JsonResponse({'data': qs_val})
+
+
+def get_json_model_data(request, *args, **kwargs):
+    selected_car = kwargs.get('car')
+    obj_models = list(Model.objects.filter(car__name=selected_car).values())
+    return JsonResponse({'data':obj_models})    
+

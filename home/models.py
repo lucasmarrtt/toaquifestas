@@ -3,6 +3,9 @@ from django.db.models.aggregates import Max
 
 from stdimage.models import StdImageField
 
+# Local Flavor
+from localflavor.br.br_states import STATE_CHOICES
+
 # Slug na url 
 from django.utils.text import slugify 
 from django.urls import reverse 
@@ -22,38 +25,35 @@ class Categorias(models.Model):
         return self.nome
 
 
-class Estado(models.Model):
-    nome = models.CharField('Estado', max_length=255)
-
-    class Meta:
-        verbose_name = 'Estado'
-        verbose_name_plural = 'Estados'
+class City(models.Model):
+    name = models.CharField('cidade', max_length=100)
+    uf = models.CharField('UF', max_length=2, choices=STATE_CHOICES)
 
     def __str__(self):
-        return self.nome   
-
-
-class Cidade(models.Model):
-    nome = models.CharField('Nome da cidade', max_length=255)     
+        return f'{self.name}, {self.uf}'
 
     class Meta:
-        verbose_name = 'Cidade'
-        verbose_name_plural = 'Cidades'    
+        ordering = ('name',)
+        verbose_name = 'cidade'
+        verbose_name_plural = 'cidades'
+
+
+class District(models.Model):
+    name = models.CharField('distrito', max_length=100)
+    city = models.ForeignKey(
+        'City',
+        verbose_name='cidade',
+        on_delete=models.CASCADE,
+    )
 
     def __str__(self):
-        return self.nome    
-
-
-class Bairro(models.Model):
-    nome = models.CharField('Bairro', max_length=255)   
+        return f'{self.name}, {self.city}'
 
     class Meta:
-        verbose_name = 'Bairro'
-        verbose_name_plural = 'Bairros'    
+        ordering = ('name',)
+        verbose_name = 'distrito'
+        verbose_name_plural = 'distritos'
 
-    def __str__(self):
-        return self.nome       
-    
 
 class Anuncios(models.Model):
     criado = models.DateTimeField(auto_now_add=True)
@@ -64,15 +64,18 @@ class Anuncios(models.Model):
     descricao = models.TextField('Descrição', max_length=255)
     endereco = models.CharField('Endereço', max_length=255)
     cep = models.CharField('CEP', max_length=255)
-    estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
-    cidade = models.ForeignKey(Cidade, on_delete=models.CASCADE)
-    bairro = models.ForeignKey(Bairro, on_delete=models.CASCADE)
+    estado = models.CharField('Estado', max_length=55, choices=STATE_CHOICES)
+    cidade = models.ForeignKey(City, on_delete=models.CASCADE)
+    bairro = models.ForeignKey(District, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categorias, on_delete=models.CASCADE)
     telefone = models.CharField('Telefone', max_length=255)
     email = models.EmailField('E-mail', max_length=255, null=True, blank=True)
     facebook = models.CharField('Facebook', max_length=255, null=True, blank=True)
     istagram = models.CharField('Instagram', max_length=255, null=True, blank=True)
     google_maps = models.TextField('Google maps', null=True, blank=True)
+    # Observação 
+    publicado = models.BooleanField(default=True)
+    promocao = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Anuncio'
@@ -89,44 +92,6 @@ class Anuncios(models.Model):
         self.slug = slugify(value, allow_unicode=False)    
         super().save(*args, **kwargs)
 
-
-class Promocoes(models.Model):
-    criado = models.DateTimeField(auto_now_add=True)
-    modificado = models.DateTimeField(auto_now=True)
-    imagem = StdImageField('Imagem', upload_to='Promocoes', null=True, blank=True, variations={'thumb': {'width': 351, 'height': 215, 'crop': True }}) 
-    titulo = models.CharField('Nome do anúncio', max_length=255)
-    slug = models.SlugField(max_length=255, unique=True, null=True, blank=True)
-    descricao = models.TextField('Descrição', max_length=255)
-    endereco = models.CharField('Endereço', max_length=255)
-    cep = models.CharField('CEP', max_length=255)
-    estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
-    cidade = models.ForeignKey(Cidade, on_delete=models.CASCADE)
-    bairro = models.ForeignKey(Bairro, on_delete=models.CASCADE)
-    categoria = models.ForeignKey(Categorias, on_delete=models.CASCADE)
-    telefone = models.CharField('Telefone', max_length=255)
-    email = models.EmailField('E-mail', max_length=255, null=True, blank=True)
-    facebook = models.CharField('Facebook', max_length=255, null=True, blank=True)
-    istagram = models.CharField('Instagram', max_length=255, null=True, blank=True)
-    google_maps = models.TextField('Google maps', null=True, blank=True)
-
-    class Meta:
-        verbose_name = 'Promoção'
-        verbose_name_plural = 'Promoções'
-
-    def __str__(self):
-        return self.titulo  
-
-    def get_absolute_url(self):
-        return reverse('detalhes-da-promocao', kwargs={'slug': self.slug})    
-
-    def save(self, *args, **kwargs):
-        value = self.titulo 
-        self.slug = slugify(value, allow_unicode=False)    
-        super().save(*args, **kwargs)
-
-
-
-   
 
 class Solicitacao(models.Model):
     criado = models.DateTimeField(auto_now_add=True)
@@ -150,10 +115,10 @@ class Solicitacao(models.Model):
         ('topo_de_bolo', 'Topo de Bolo'),
         ('mesas_e_cadeiras', 'Mesas e Cadeiras'),
         ('convites', 'Convites'),
-        ('animador', 'Animador'), 
-        ('brinquedos', 'Brinquedos'),
-        ('musica', 'Música'),
-        ('fotografia', 'Fotografia'),
+        ('recreacao_infantil', 'Recreação Infantil'), 
+        ('roupas_tematicas', 'Roupas Tematicas/Fantasias'),
+        ('musica', 'Músicos/Djs'),
+        ('fotos_e_filmagens', 'Fotos e Filmagens'),
         ('artigos_para_festas', 'Artigos Para Festas'),
         ('casa_de_festas', 'Casa de Festas'),
     )
@@ -225,3 +190,4 @@ class Depoimentos(models.Model):
         return self.nome  
 
     
+

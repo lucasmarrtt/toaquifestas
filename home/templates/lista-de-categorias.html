@@ -48,24 +48,35 @@
                     <!-- Form Start -->
                     <div class="row">
                         <div class="col-12 grid-margin stretch-card">
-                            <div class="card" style="background-color:yellow;">
+                            <div class="card" style="background-color: yellow;">
                                 <div class="card-body">
                                     <h4 class="card-title">Aqui você acha os melhores parceiros para sua festa</h4>
-                                    <form>
+                                    <form id="myForm" method="GET" data-urlcities="{% url 'cities_choices_ajax' %}" data-urldistricts="{% url 'districts_choices_ajax' %}">
                                         <div class="form-group">
-                                            {% render_field filtered_categorias.form.titulo class="form-control" placeholder="Ex: confeiteiro..." %}
+                                            {% render_field filtered_promocoes.form.titulo class="form-control" placeholder="Ex: confeiteiro..." %}
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
-                                                <label for="inputState">Estado</label> {% render_field filtered_categorias.form.estado class="form-control" placeholder="nome" %}
+                                                <label for="inputState">Estado</label> {% render_field form.state title="Estados" class="form-control" %}
                                             </div>
 
                                             <div class="form-group col-md-4">
-                                                <label for="inputState">Cidade</label> {% render_field filtered_categorias.form.cidade class="form-control" placeholder="nome" %}
+
+
+                                                <label for="citySelect">Cidade</label>
+                                                <select class="form-control" id="citySelect" name="cidade">
+                                                <option>---------------------</option>
+                                        </select>
+
                                             </div>
 
                                             <div class="form-group col-md-4">
-                                                <label for="inputState">Bairro</label> {% render_field filtered_categorias.form.bairro class="form-control" placeholder="nome" %}
+
+                                                <label for="districtSelect">Bairro</label>
+                                                <select class="form-control" id="districtSelect" name="bairro">
+                                            <option>---------------------</option>
+                                        </select>
+
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Procurar</button>
@@ -119,30 +130,24 @@
 
 
 
-                    <nav aria-label="..." style="margin: 20px 0 20px 0;">
-                        <ul class="pagination">
+                    <div class="pagination" style="margin: 30px 0px 30px 0px;">
+                        <span class="step-links">
 
                             {% if categoria_page_obj.has_previous %}
-
-                            <li class="page-item disabled">
-                                <a class="page-link" href="{% my_url categoria_page_obj.previous_page_number 'page' request.GET.urlencode %}" tabindex="-1">Primeira</a>
-                            </li>
-
-                            <li class="page-item"><a class="page-link" href="{% my_url 1 'page' request.GET.urlencode %}">Voltar</a></li>
+                            <a href="{% my_url 1 'page' request.GET.urlencode %}"> &laquo;  Primeira</a>
+                            <a href="{% my_url categoria_page_obj.previous_page_number 'page' request.GET.urlencode %}">Voltar</a>
                             {% endif %}
 
-                            <li class="page-item active">
-                                <a class="page-link" href="#"> Página - {{ anuncio_page_obj.number }} <span class="sr-only">of {{anuncio_page_obj.paginator.num_page }}</span></a>
-                            </li>
-                            {% if categoria_page_obj.has_next %}
-                            <li class="page-item">
-                                <a class="page-link" href="{% my_url categoria_page_obj.next_page_number 'page' request.GET.urlencode %}">Próxima</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="{% my_url categoria_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Ultima</a>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </nav>
+                            <span class="current">
+
+                                Pa. {{ categoria_page_obj.number }} de {{ categoria_page_obj.paginator.num_pages }}
+
+                            </span> {% if categoria_page_obj.has_next %}
+                        <a href="{% my_url categoria_page_obj.next_page_number 'page' request.GET.urlencode %}"> Próxima</a>
+                        <a href="{% my_url categoria_page_obj.paginator.num_pages 'page' request.GET.urlencode %}"> &raquo; Última</a> {% endif %}
+
+                        </span>
+                    </div>
 
 
 
@@ -182,6 +187,43 @@
 
 
     {% include 'includes/js.html' %}
+
+
+    <script>
+        $('#id_state').change(function() {
+            let urlCities = $('#myForm').data('urlcities');
+            let ufIdCity = $(this).val();
+
+            $.ajax({
+                url: urlCities,
+                data: {
+                    uf: ufIdCity
+                },
+                success: function(response) {
+                    $('#citySelect').html(response);
+                }
+            })
+        });
+
+
+
+        $('#citySelect').change(function() {
+            let urlDistricts = $('#myForm').data('urldistricts');
+            let cityIdDistrict = $(this).val();
+            console.log(urlDistricts);
+            console.log(cityIdDistrict);
+
+            $.ajax({
+                url: urlDistricts,
+                data: {
+                    city: cityIdDistrict
+                },
+                success: function(response) {
+                    $('#districtSelect').html(response);
+                }
+            })
+        });
+    </script>
 
 </body>
 

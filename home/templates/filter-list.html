@@ -1,0 +1,239 @@
+{% load static %} {% load widget_tweaks %} {% load home_extras %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Encontre o serviço que você precisa - Tô Aqui Festas</title>
+
+    {% include 'includes/css.html' %}
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- semantic UI -->
+    <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
+    <!-- custom css & js -->
+    <script src={% static 'main.js' %} defer></script>
+    <script src={% static 'semantic.js' %} defer></script>
+
+</head>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_horizontal-navbar.html -->
+        <div class="horizontal-menu">
+
+
+
+            {% include 'includes/header.html' %}
+
+
+
+        </div>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <div class="main-panel">
+                <div class="content-wrapper pb-0">
+
+
+                    <div class="page-header flex-wrap">
+                        <div class="header-left">
+                        </div>
+                        <div class="header-right d-flex flex-wrap mt-md-2 mt-lg-0">
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="jumbotron">
+                        <div class="container">
+                            <h2>Exemplo de como filtrar várias listas.</h2>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <!-- Example row of columns -->
+                        <div class="row">
+                            <div class="col">
+                                <h5>Estados</h5>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Estado</th>
+                                            <th>UF</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for state in states %}
+                                        <tr>
+                                            <td>
+                                                <a href="" data-url="{% url 'cities_ajax' %}?uf={{ state.0 }}" data-uf="{{ state.0 }}" class="state">{{ state.1}}</a>
+                                            </td>
+
+                                            <td>{{ state.0 }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col">
+                                <div class="cities">
+                                    <h5>Cidades</h5>
+                                    <div id="id_cities"></div>
+                                </div>
+                                <!-- <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Cidade</th>
+                                            <th>UF</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for city in cities %}
+                                        <tr>
+                                            <td>{{ city.name }}</td>
+                                            <td>{{ city.uf }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table> -->
+                                <div class="cities">
+                                    <h5>Cidades</h5>
+                                    <div id="id_cities"></div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Cidade</th>
+                                                <th>UF</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+
+                            </div>
+                            <div class="col">
+                                <!-- <table class="table">
+                                     
+                                    <thead>
+                                        <tr>
+                                            <th>Bairro</th>
+                                            <th>Cidade</th>
+                                            <th>UF</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for district in districts %}
+                                        <tr>
+                                            <td>{{ district.name }}</td>
+                                            <td>{{ district.city }}</td>
+                                            <td>{{ district.city.uf }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>-->
+                                <div class="districs">
+                                    <h5>Bairros</h5>
+                                    <div id="id_districts"></div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Cidade</th>
+                                                <th>UF</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                </div>
+                <!-- /container -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+
+        {% include 'includes/footer.html' %}
+
+
+    </div>
+    </div>
+    </div>
+
+
+    {% include 'includes/js.html' %}
+
+
+    <script>
+        $('.state').on('click', function(event) {
+            let url = $(this).data('url');
+            let uf = $(this).data('uf');
+
+            $.ajax({
+                url: url,
+                data: {
+                    uf: uf
+                },
+                success: function(response) {
+                    $('#id_cities').html(response);
+
+                }
+            })
+            event.preventDefault();
+
+        });
+
+        $(document).on('click', '.city', function(event) {
+            let url = $(this).data('url');
+            let uf = $(this).data('uf');
+
+            $.ajax({
+                url: url,
+                data: {
+                    uf: uf
+                },
+                success: function(response) {
+                    $('#id_districts').html(response);
+
+                }
+            })
+
+            event.preventDefault();
+        })
+    </script>
+
+</body>
+
+</html>

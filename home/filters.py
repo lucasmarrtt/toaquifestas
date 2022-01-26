@@ -1,28 +1,11 @@
 import django_filters 
-from . models import Anuncios, Promocoes
+from . models import Anuncios
 
 class AnuncioFilter(django_filters.FilterSet):
     class Meta:
         model = Anuncios
         fields = [
-            'titulo',
-            'estado', 
-            'cidade',
-            'categoria', 
+            'cidade', 
             'bairro',
 
-        ]
-
-class PromocoesFilter(django_filters.FilterSet):
-    class Meta:
-        
-        model = Promocoes
-        fields = [
-            'titulo',
-            'estado', 
-            'cidade',
-            'categoria',
-            'bairro',
-        ]
-
-     
+        ]       

@@ -19,10 +19,19 @@ from django.urls import path, include
 from django.conf.urls.static import static  
 from django.conf import settings  
 
+from home.views import get_json_car_data, get_json_model_data
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')), 
     path('', include('pwa.urls')), 
+    path('chaining/', include('smart_selects.urls')),
+
+    path('cars-json/', get_json_car_data, name='cars-json'),
+    
+    path('models-json/<str:car>/', get_json_model_data, name='models-json'),
+    
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

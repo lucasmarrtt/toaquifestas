@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django_filters',
     'widget_tweaks',
     'pwa', 
+
+    'smart_selects',
     
 ]
 
@@ -88,16 +90,20 @@ DATABASES = {
 }
 
 '''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'instit05_nexxt',
-        'USER': 'instit05_lucas',
-        'PASSWORD': 'Niaw6ied91039944',
+        'NAME': 'toaquife_toaquifestas',
+        'USER': 'toaquife_tathiana',
+        'PASSWORD': 'Festas101504*',
         'HOST': 'localhost',
         'PORT': '5432',
     }
-} '''
+} 
+
+
+'''
 
 
 # Password validation
@@ -141,7 +147,7 @@ MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
+#MEDIA_ROOT = os.path.join(BASE_DIR, '/home/toaquife/public_html/media') 
 
 
 
@@ -162,21 +168,62 @@ PWA_APP_START_URL = '/'
 PWA_APP_STATUS_BAR_COLOR = 'default'
 PWA_APP_ICONS = [
     {
-        'src': 'static/assets/images/festa.png',
+        'src': 'static/assets/images/logo-mobile.png',
         'sizes': '160x160'
     }
 ]
 PWA_APP_ICONS_APPLE = [
     {
-        'src': 'static/assets/images/festa.png',
+        'src': 'static/assets/images/logo-mobile.png',
         'sizes': '160x160'
     }
 ]
 PWA_APP_SPLASH_SCREEN = [
     {
-        'src': 'static/assets/images/festa.png',
+        'src': 'static/assets/images/logo-mobile.png',
         'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
     }
 ]
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'pt-br'
+
+
+
+
+# Configuração de envio de e-mails 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.toaquifestas.com.br'
+EMAIL_HOST_USER = 'contato@toaquifestas.com.br'
+EMAIL_HOST_PASSWORD = 'Festas101504*'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+# Forçar SSL
+
+#SECURE_SSL_REDIRECT = True
+
+
+'''
+
+
+import os
+import sys
+
+
+sys.path.insert(0, os.path.dirname(__file__))
+
+
+import sistema.wsgi
+
+application = sistema.wsgi.application 
+
+
+
+'''
+
+
+
+
+JQUERY_URL = True
