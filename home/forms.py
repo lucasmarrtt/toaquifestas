@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from . models import Solicitacao, Reclamacoes, Renovacao, City, District
+from . models import Solicitacao, Reclamacoes, Renovacao, City, District, Categorias, Anuncios
 
 # Local Flavor
 from localflavor.br.br_states import STATE_CHOICES
@@ -31,3 +31,9 @@ class StateForm(forms.Form):
 
 	class Meta:
 		fields = ('state', )
+
+
+class CategoriaForm(forms.Form):
+	class Meta:
+		model = Anuncios
+		fields = ('categoria', )

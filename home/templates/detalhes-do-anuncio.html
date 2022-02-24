@@ -66,16 +66,64 @@
                                                         <h3 class="font-weight-bold mb-0">{{ anuncios.titulo }} </h3>
                                                         <small>{{ anuncios.endereco }}</small>
                                                         <h4 style="margin-top: 50px;"><i class="mdi mdi-cellphone">{{ anuncios.telefone }}</i></h4>
-                                                        <p>{{ anuncios.descricao }}</p>
+                                                        <p>{{ anuncios.descricao|safe }}</p>
 
-                                                        <i class="mdi mdi-facebook"><a href="{{ anuncios.facebook }}" target="_blank">Facebook</a></i><br>
-                                                        <i class="mdi mdi-instagram"><a href="{{ anuncios.instagram }}" target="_blank">Instagram</a></i>
+
+
+                                                        <!-- <i class="mdi mdi-facebook">
+                                                            <a href="{{ anuncios.link_facebook }}" target="_blank"></a>
+                                                            </i>
+                                                            <i class="mdi mdi-instagram"><a href="{{ anuncios.link_instagram }}" target="_blank"></a></i>
+                                                        -->
+                                                        <a href="{{ anuncios.link_facebook }}" target="_blank"><i class="mdi mdi-facebook" style="font-size: 48px;"></i></a>
+                                                        <a href="{{ anuncios.link_instagram }}" target="_blank"><i class="mdi mdi-instagram" style="font-size: 48px; color: red;"></i></a>
+
+
+
+
+
                                                     </div>
                                                 </div>
 
+
+
                                                 <div class="col-sm">
 
-                                                    <img class="img-fluid w-100" src="{{ anuncios.imagem.thumb.url }}" alt="">
+
+
+
+
+                                                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                                        <ol class="carousel-indicators">
+                                                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                                        </ol>
+                                                        <div class="carousel-inner">
+                                                            <div class="carousel-item active">
+                                                                <img class="d-block w-100" src="{{ anuncios.imagem_01.url }}" alt="First slide">
+                                                            </div>
+                                                            <div class="carousel-item">
+                                                                <img class="d-block w-100" src="{{ anuncios.imagem_02.url }}" alt="Second slide">
+                                                            </div>
+                                                            <div class="carousel-item">
+                                                                <img class="d-block w-100" src="{{ anuncios.imagem_03.url }}" alt="Third slide">
+                                                            </div>
+
+                                                        </div>
+                                                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                            <span class="sr-only">Anterior</span>
+                                                        </a>
+                                                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                            <span class="sr-only">Próximo</span>
+                                                        </a>
+                                                    </div>
+
+
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -85,6 +133,9 @@
                                         <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 300px">
                                             <iframe src="{{ anuncios.google_maps }}" frameborder="0" width="100%" height="100%" style="border:0" allowfullscreen></iframe>
                                         </div>
+
+
+
 
 
 

@@ -14,7 +14,7 @@ from . filters import AnuncioFilter
 from django.core.paginator import Paginator 
 
 # Form solicitação de anúncio 
-from . forms import SolicitacaoForm, ReclamacoesForm, RenovacaoForm, StateForm
+from . forms import SolicitacaoForm, ReclamacoesForm, RenovacaoForm, StateForm, CategoriaForm
 
 # Envio de E-mail
 from django.core.mail import send_mail
@@ -97,20 +97,14 @@ def termosDeUso(request):
 def listaDeAnuncios(request):
     context = {}
     context['form'] = StateForm 
+    context['lista_de_categorias'] = Categorias.objects.all()
 
     anuncio = Anuncios.objects.all()
     
 
-    '''
-    q = request.GET.get('bairro')
-    if q:
-        anuncio = Anuncios.objects.filter(bairro=q)
-        context['anuncio'] = anuncio    '''
-
-
     anuncio_list = AnuncioFilter(
         request.GET,
-        queryset = Anuncios.objects.all()
+        queryset = Anuncios.objects.all().filter(promocao=False)
     )    
 
     context['anuncio_list'] = anuncio_list
@@ -133,22 +127,9 @@ def listaDeAnuncios(request):
 
 
 
-def filter_list(request):
-    context = {}
-    cities = City.objects.all()
-    districts = District.objects.all()
-    context['states'] = STATE_CHOICES
-    context['cities'] = cities
-    context['districts'] = districts
 
-    return render(request, 'filter-list.html', context)
 
-def cities_ajax(request):
-    uf = request.GET.get('uf')    
-    cities = City.objects.filter(uf=uf)
-    context = {'cities': cities}
 
-    return render(request, 'includes/__cities.html', context)
 
 
 def cities_choices_ajax(request):
@@ -167,12 +148,7 @@ def districts_choices_ajax(request):
     return render(request, 'includes/__districts-choices.html', context)
 
 
-def districts_ajax(request):
-    city = request.GET.get('city')    
-    districts = District.objects.filter(city=city)
-    context = {'districts': districts}
 
-    return render(request, 'includes/__districts.html', context)    
 
 
 
@@ -188,7 +164,7 @@ def listaDeCategorias(request, cats):
     
     filtered_categorias = AnuncioFilter(
         request.GET, 
-        queryset=Anuncios.objects.filter(categoria=cats, publicado=True)
+        queryset=Anuncios.objects.filter(categoria=cats, publicado=True, promocao=False)
     )
 
     context['filtered_categorias'] = filtered_categorias

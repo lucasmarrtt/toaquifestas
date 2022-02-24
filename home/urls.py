@@ -2,7 +2,7 @@ from django.urls import path
 from . views import (index, cadastre_se, depoimentos, planos, contato, 
 listaDeAnuncios, listaDeCategorias, basico, DetalhesDoAnuncioView, DetalhesDaPromocaoView,
 classico, classico_2, premium, premium_2, premium_3, premium_4, listaDePromocoes, renovacao, 
-politicaDePrivacidade, termosDeUso, filter_list, cities_ajax, districts_ajax, cities_choices_ajax, districts_choices_ajax)
+politicaDePrivacidade, termosDeUso, cities_choices_ajax, districts_choices_ajax)
 
 
 urlpatterns = [
@@ -29,34 +29,10 @@ urlpatterns = [
     path('premium-3/', premium_3, name='premium-3'),
     path('premium-4/', premium_4, name='premium-4'),
 
-
-
-
-
-    # Filtrando lista 
-    path('filter-list/', filter_list, name='filter-list'), 
-    path('cities/ajax/', cities_ajax, name='cities_ajax'),
-
-    path('districts/ajax/', districts_ajax, name='districts_ajax'),
-
-
+    # Filtro dropdown 
     path('cities/choices/ajax/', cities_choices_ajax, name='cities_choices_ajax'),
-
     path('districts/choices/ajax/', districts_choices_ajax, name='districts_choices_ajax'),
     
-
-
-    
-
-
-
-
-
-
-    
-
-    
-
 
 ] 
 

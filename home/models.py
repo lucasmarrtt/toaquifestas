@@ -10,6 +10,9 @@ from localflavor.br.br_states import STATE_CHOICES
 from django.utils.text import slugify 
 from django.urls import reverse 
 
+#Ck Editor 
+from ckeditor.fields import RichTextField
+
 # Create your models here.
 class Categorias(models.Model):
     criado = models.DateTimeField(auto_now_add=True)
@@ -58,10 +61,12 @@ class District(models.Model):
 class Anuncios(models.Model):
     criado = models.DateTimeField(auto_now_add=True)
     modificado = models.DateTimeField(auto_now=True)
-    imagem = StdImageField('Imagem', upload_to='Anuncios', null=True, blank=True, variations={'thumb': {'width': 351, 'height': 215, 'crop': True }}) 
+    imagem_01 = StdImageField('Imagem 01', default='exemple.jpg', upload_to='Anuncios', null=True, blank=True) 
+    imagem_02 = StdImageField('Imagem 02', default='exemple.jpg', upload_to='Anuncios', null=True, blank=True) 
+    imagem_03 = StdImageField('Imagem 03', default='exemple.jpg', upload_to='Anuncios', null=True, blank=True) 
     titulo = models.CharField('Nome do anúncio', max_length=255)
     slug = models.SlugField(max_length=255, unique=True, null=True, blank=True)
-    descricao = models.TextField('Descrição', max_length=255)
+    descricao = RichTextField('Descrição', )
     endereco = models.CharField('Endereço', max_length=255)
     cep = models.CharField('CEP', max_length=255)
     estado = models.CharField('Estado', max_length=55, choices=STATE_CHOICES)
@@ -70,8 +75,8 @@ class Anuncios(models.Model):
     categoria = models.ForeignKey(Categorias, on_delete=models.CASCADE)
     telefone = models.CharField('Telefone', max_length=255)
     email = models.EmailField('E-mail', max_length=255, null=True, blank=True)
-    facebook = models.CharField('Facebook', max_length=255, null=True, blank=True)
-    istagram = models.CharField('Instagram', max_length=255, null=True, blank=True)
+    link_facebook = models.URLField('Link Facebook', null=True, blank=True)
+    link_instagram = models.URLField('Link Instagram', null=True, blank=True)
     google_maps = models.TextField('Google maps', null=True, blank=True)
     # Observação 
     publicado = models.BooleanField(default=True)
@@ -97,10 +102,12 @@ class Solicitacao(models.Model):
     criado = models.DateTimeField(auto_now_add=True)
     modificado = models.DateTimeField(auto_now=True)
     nomec = models.CharField('Nome do cliente', max_length=255)
-    cpfc = models.CharField('CPF', max_length=20)
+    cpfc = models.CharField('CPF', max_length=20, null=True, blank=True)
     telefonec = models.CharField('Telefone', max_length=20)
     emailc = models.EmailField('E-mail do cliente',)
-    imagem = StdImageField('Imagem', upload_to='Solicitacoes', null=True, blank=True, variations={'thumb': {'width': 351, 'height': 215, 'crop': True }}) 
+    imagem_01 = StdImageField('Imagem 01', upload_to='Solicitacoes', null=True, blank=True,)
+    imagem_02 = StdImageField('Imagem 02', upload_to='Solicitacoes', null=True, blank=True,) 
+    imagem_03 = StdImageField('Imagem 03', upload_to='Solicitacoes', null=True, blank=True,)  
     titulo = models.CharField('Título do anúncio', max_length=255)
     CATEGORIA_CHOICES = (
         ('salgados', 'Salgados'),

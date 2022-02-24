@@ -84,6 +84,22 @@
                                                 </select>
 
                                             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputState">Categoria</label> {% render_field anuncio_list.form.categoria title="Categoria" class="form-control" %}
                                         </div>
                                         <button type="submit" class="btn btn-primary">Procurar</button>
                                     </form>
@@ -136,10 +152,10 @@
                                 <p class="mb-0">
                                     <i class="mdi mdi-cellphone star-color pr-1"></i>{{ anuncio.telefone }}</p>
 
-                                <p class="mb-0">{{ anuncio.estado }} - {{ anuncio.cidade }} - {{ anuncio.bairro }} </p>
+                                <p class="mb-0">{{ anuncio.estado }} - {{ anuncio.cidade }}</p>
 
                             </div>
-                            <h6>{{ anuncio.estado }}</h6>
+                            <h6>{{ anuncio.anuncio.estado }}</h6>
 
                             <a class="btn btn-info" href="{{ anuncio.get_absolute_url }}">Ver</a>
 

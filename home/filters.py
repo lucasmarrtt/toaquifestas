@@ -7,5 +7,6 @@ class AnuncioFilter(django_filters.FilterSet):
         fields = [
             'cidade', 
             'bairro',
+            'categoria',
 
         ]       
